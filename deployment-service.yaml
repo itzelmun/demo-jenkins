@@ -25,6 +25,47 @@ spec:
             - containerPort: 80
               name: demo
 
+
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql
+        role: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: itzelmunguia/mysql:8.0
+          ports:
+            - containerPort: 3306
+              name: mysql
+          volumeMounts:
+            - mountPath: "var/lib/mysql"
+              subPath: "mysql"
+              name: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql
+                  key: "123"
+
 ---
 apiVersion: v1
 kind: Service
@@ -43,3 +84,25 @@ spec:
      targetPort: 80
   selector:
     role: demo
+
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  selector:
+   app: mysql
+  type: LoadBalancer
+  ports:
+   - name: http
+     port: 3306
+     protocol: TCP
+     targetPort: 3306
+  selector:
+    role: mysql
