@@ -65,6 +65,33 @@ spec:
                 secretKeyRef:
                   name: mysql
                   key: "123"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin
+spec:
+  selector:
+    matchLabels:
+      app: phpmyadmin
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: phpmyadmin
+        role: phpmyadmin
+    spec:
+      containers:
+        - name: phpmyadmin
+          image: itzelmunguia/phpmyadmin:latest
+          ports:
+            - containerPort: 8080
+              name: phpmyadmin
 
 ---
 apiVersion: v1
@@ -106,3 +133,23 @@ spec:
      targetPort: 3306
   selector:
     role: mysql
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpmyadmin
+  labels:
+    app: phpmyadmin
+spec:
+  selector:
+   app: phpmyadmin
+  type: LoadBalancer
+  ports:
+   - name: http
+     port: 8080
+     protocol: TCP
+     targetPort: 8080
+  selector:
+    role: phpmyadmin
+
