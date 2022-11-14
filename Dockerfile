@@ -1,4 +1,4 @@
-FROM php:7.4.30-apache
+FROM php:8.1-apache
 RUN mkdir -p /var/www/simplesaml_funcionando
 COPY . /var/www/simplesaml_funcionando/
 COPY ./000-default.conf  /etc/apache2/sites-available/000-default.conf

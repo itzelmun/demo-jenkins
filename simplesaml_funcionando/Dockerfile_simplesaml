@@ -4,7 +4,7 @@ FROM php:7.4.28-apache-buster
 RUN mkdir -p /var/www/simplesaml
 
 COPY . /var/www/simplesaml/
-COPY ./000-default.conf  /etc/apache2/sites-available/000-default.conf
+COPY ./000-default.conf   /etc/apache2/sites-available/000-default.conf
 
 RUN a2enmod rewrite 
 RUN docker-php-ext-install mysqli
