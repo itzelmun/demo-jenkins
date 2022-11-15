@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mysql-secrets
+  name: mysql-secret
 type: Opaque
 data:
   root-password: c2VndXJpZGFkLW1heGltYS1teXNxbA==
@@ -32,13 +32,13 @@ spec:
             - containerPort: 80
           env:
             - name: PMA_HOST
-              value: mysql-service
+              value: mysql-services
             - name: PMA_PORT
               value: "3306"
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mysql-secrets
+                  name: mysql-secret
                   key: root-password
 ---
 
