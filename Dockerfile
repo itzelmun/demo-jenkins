@@ -8,8 +8,6 @@ COPY ./phpmyadmin /var/www/phpmyadmin/
 COPY ./phpmyadmin/000-default.conf /var/www/html/000-default.conf
 
 
-
-
 RUN a2enmod rewrite
 #RUN docker-php-ext-install mysqli
 
