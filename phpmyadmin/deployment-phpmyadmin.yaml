@@ -12,7 +12,7 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: phpmyadmin-deploy
+  name: phpmyadmin2
   labels:
     app: phpmyadmin2
 spec:
@@ -32,7 +32,7 @@ spec:
             - containerPort: 80
           env:
             - name: PMA_HOST
-              value: mysql-servicio
+              value: mysql2
             - name: PMA_PORT
               value: "3306"
             - name: MYSQL_ROOT_PASSWORD
@@ -45,7 +45,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: phpmyadmin-servicio
+  name: phpmyadmin2
 spec:
   type: LoadBalancer
   selector:
