@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mysql-secret
+  name: mysql-credential-secret
 type: Opaque
 data:
   ROOT_PASSWORD: c2VndXJpZGFkLW1heGltYS1teXNxbA==
@@ -13,7 +13,7 @@ data:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-disk-data
+  name: mysql-datos
 spec:
   accessModes:
     - ReadWriteOnce
@@ -26,7 +26,7 @@ kind: Deployment
 metadata:
   name: mysql-deploy
   labels:
-    app: mysql-deploy
+    app: mysql2
 spec:
   replicas: 1
   selector:
@@ -50,18 +50,18 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mysql-secret
+                  name: mysql-credential-secret
                   key: ROOT_PASSWORD
       volumes:
         - name: mysql-disk
           persistentVolumeClaim:
-            claimName: mysql-disk-data
+            claimName: mysql-datos
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql-services
+  name: mysql-servicio
 spec:
   selector:
     app: mysql2

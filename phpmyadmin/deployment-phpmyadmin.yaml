@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mysql-secret
+  name: mysql-credential-secret
 type: Opaque
 data:
   root-password: c2VndXJpZGFkLW1heGltYS1teXNxbA==
@@ -14,42 +14,42 @@ kind: Deployment
 metadata:
   name: phpmyadmin-deploy
   labels:
-    app: phpmyadmin
+    app: phpmyadmin2
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: phpmyadmin
+      app: phpmyadmin2
   template:
     metadata:
       labels:
-        app: phpmyadmin
+        app: phpmyadmin2
     spec:
       containers:
-        - name: phpmyadmin
+        - name: phpmyadmin2
           image: phpmyadmin/phpmyadmin
           ports:
             - containerPort: 80
           env:
             - name: PMA_HOST
-              value: mysql-services
+              value: mysql-servicio
             - name: PMA_PORT
               value: "3306"
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mysql-secret
+                  name: mysql-credential-secret
                   key: root-password
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: phpmyadmin-services
+  name: phpmyadmin-servicio
 spec:
   type: LoadBalancer
   selector:
-    app: phpmyadmin
+    app: phpmyadmin2
   ports:
   - protocol: TCP
     port: 80
