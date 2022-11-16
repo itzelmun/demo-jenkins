@@ -3,9 +3,11 @@ RUN mkdir -p /var/www/simplesaml_funcionando
 COPY ./simplesaml_funcionando /var/www/simplesaml_funcionando/
 COPY ./simplesaml_funcionando/000-default.conf  /etc/apache2/sites-available/000-default.conf
 
-RUN mkdir -p /var/www/phpmyadmin
-COPY ./phpmyadmin /var/www/phpmyadmin/
-COPY ./phpmyadmin/000-default.conf /var/www/html/000-default.conf
+RUN mkdir -p /var/www/html/phpmyadmin
+COPY phpmyadmin /var/www/phpmyadmin/
+COPY 000-default.conf /var/www/html/000-default.conf
+
+
 
 
 RUN a2enmod rewrite
