@@ -3,7 +3,7 @@ RUN mkdir -p /var/www/simplesaml_funcionando
 COPY ./simplesaml_funcionando /var/www/simplesaml_funcionando/
 COPY ./simplesaml_funcionando/000-default.conf  /etc/apache2/sites-available/000-default.conf
 
-RUN mkdir -p /var/www/phpmyadmin2
+RUN mkdir -p /var/www/phpmyadmin
 COPY ./phpmyadmin  /var/www/phpmyadmin/
 COPY ./phpmyadmin/000-default.conf  /etc/apache2/sites-available/000-default.conf
 
