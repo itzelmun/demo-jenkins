@@ -33,7 +33,7 @@ spec:
         path: /PruebaDemo
         backend:
           service:
-            name: phpmyadmin2
+            name: phpmyadmin-service
             port:
               number: 80
 
