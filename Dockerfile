@@ -5,7 +5,7 @@ COPY ./simplesaml_funcionando/000-default.conf  /etc/apache2/sites-available/000
 
 RUN mkdir -p /var/www/phpmyadmin
 COPY ./phpmyadmin  /var/www/phpmyadmin/
-COPY ./phpmyadmin/000-default.conf  /etc/apache2/sites-available/000-default.conf
+COPY ./phpmyadmin/000-default.conf  /var/www/html/
 
 
 RUN a2enmod rewrite
